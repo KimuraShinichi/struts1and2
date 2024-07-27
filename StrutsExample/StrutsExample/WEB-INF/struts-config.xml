@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+    "/WEB-INF/dtds/struts-config_1_2.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="helloWorldForm" type="com.example.web.HelloWorldForm"/>
+        <form-bean name="loginForm" type="org.apache.struts.validator.DynaValidatorForm">
+            <form-property name="username" type="java.lang.String"/>
+            <form-property name="password" type="java.lang.String"/>
+        </form-bean>
+    </form-beans>
+
+    <global-forwards>
+        <forward name="error" path="/N000Error.jsp" />
+        <!-- その他のフォワード設定 -->
+    </global-forwards>
+
+    <action-mappings>
+        <action path="/helloWorld"
+                type="com.example.web.HelloWorldAction"
+                name="helloWorldForm"
+                scope="request"
+                validate="false">
+            <forward name="success" path="/helloWorld.jsp"/>
+        </action>
+        <action path="/login" type="com.example.web.LoginAction" name="loginForm"
+                scope="request" input="/login.jsp">
+            <forward name="success" path="/welcome.jsp"/>
+            <forward name="failure" path="/login.jsp"/>
+        </action>
+        <action path="/showErrorSample" type="com.example.web.ShowErrorSampleAction">
+            <forward name="success" path="/N000Message.jsp"/>
+        </action>
+        <action path="/showMessage" type="com.example.web.ShowMessageAction">
+            <forward name="success" path="/N000Message.jsp"/>
+        </action>
+    </action-mappings>
+
+    <message-resources parameter="com.example.web.ApplicationResources"/>
+
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+</struts-config>

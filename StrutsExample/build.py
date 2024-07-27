@@ -4,7 +4,8 @@ from pathlib import Path
 import sys
 
 # 'pylib' フォルダへの絶対パスを指定
-pylib_dir = r"C:\kimura363\pylib"
+#pylib_dir = r"C:\kimura363\pylib"
+pylib_dir = "../pylib"
 sys.path.append(pylib_dir)
 
 from runner import Runner
@@ -31,12 +32,13 @@ def build(runner, build):
     for path in runner.list_relative_paths("src/java"):
         if path.name.endswith(".java"):
             # java ファイルの文字コードが UTF-8 で保存されていることを想定しています。
-            runner.run(f"javac -encoding UTF-8 -d {build}/WEB-INF/classes -cp {build}/WEB-iNF/lib/* {path}")
+            runner.run(f"javac -encoding UTF-8 -d {build}/WEB-INF/classes -cp \"{build}/WEB-INF/lib/*\" {path}")
     runner.copy_recursive_preserve("src/resources/ApplicationResources.properties", f"{build}/WEB-INF/classes/com/example/web")
     native2ascii(Path(f"src/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
     native2ascii(Path(f"src/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja.properties"), opt="-encoding UTF8")
 
-    runner.run(f"tree /F {build}")
+    #runner.run(f"tree /F {build}")
+    runner.run(f"tree {build}")
     runner.run(f"jar -cvf {build}.war -C {build} .")
     return f"{build}.war"
 
@@ -47,4 +49,4 @@ if __name__ == "__main__":
         deploy(runner, war_file)
     except Exception as e:
         print(f"Error occurred: {e}")
-        runner.run(f"pause")
+        #runner.run(f"pause")

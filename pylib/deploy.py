@@ -49,7 +49,8 @@ def stop_tomcat(tomcat_path):
     """
     try:
         print("Stopping Tomcat...")
-        stop_script = os.path.join(tomcat_path, "bin", "catalina.bat")
+        #stop_script = os.path.join(tomcat_path, "bin", "catalina.bat")
+        stop_script = os.path.join(tomcat_path, "bin", "catalina.sh")
         subprocess.run([stop_script, "stop"], check=True)
         while is_tomcat_running_by_port():
             time.sleep(1)  # ポートが閉じるのを待つ
@@ -66,7 +67,8 @@ def start_tomcat(tomcat_path):
     """
     try:
         print("Starting Tomcat...")
-        startup_script = os.path.join(tomcat_path, "bin", "catalina.bat")
+        #startup_script = os.path.join(tomcat_path, "bin", "catalina.bat")
+        startup_script = os.path.join(tomcat_path, "bin", "catalina.sh")
         subprocess.run([startup_script, "start"], check=True)
         print("Tomcat started successfully.")
     except subprocess.CalledProcessError as e:
@@ -81,7 +83,8 @@ def deploy(runner, war_file):
             raise FileNotFoundError(f"{war_file} not found.")
 
         # Tomcat デプロイメントディレクトリを指定 (ここに適切なパスを設定)
-        tomcat_home_directory = r"C:\kimura363\tomcat\apache-tomcat-8.5.100"
+        #tomcat_home_directory = r"C:\kimura363\tomcat\apache-tomcat-8.5.100"
+        tomcat_home_directory = f"{os.environ.get('CATALINA_HOME')}"
         tomcat_deploy_directory = os.path.join(tomcat_home_directory, "webapps")
 
         # デプロイメントディレクトリの存在を確認
