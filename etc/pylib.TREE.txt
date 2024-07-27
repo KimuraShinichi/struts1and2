@@ -1,0 +1,9 @@
+C:\KIMURA363\PYLIB
+│  deploy.py
+│  native2ascii.py
+│  runner.py
+│
+└─download
+    └─psutil
+            psutil-6.0.0-cp37-abi3-win_amd64.whl
+            ここで実行してインストール.bat

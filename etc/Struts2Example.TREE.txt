@@ -1,0 +1,59 @@
+C:\KIMURA363\STRUTS2EXAMPLE
+│  build.py
+│
+├─lib
+│  ├─lib-struts-6.1.1
+│  │      commons-beanutils-1.9.4.jar
+│  │      commons-collections-3.2.2.jar
+│  │      commons-digester-2.1.jar
+│  │      commons-fileupload-1.4.jar
+│  │      commons-lang3-3.10.jar
+│  │      commons-logging-1.2.jar
+│  │      commons-text-1.10.0.jar
+│  │      freemarker-2.3.31.jar
+│  │      javassist-3.29.0-GA.jar
+│  │      log4j-api-2.20.0.jar
+│  │      log4j-core-2.20.0.jar
+│  │      ognl-3.3.4.jar
+│  │      struts2-config-browser-plugin-6.1.1.jar
+│  │      struts2-core-6.1.1.jar
+│  │      struts2-json-plugin-6.1.1.jar
+│  │      xstream-1.4.19.jar
+│  │
+│  └─lib-tomcat-8.5.100
+│          servlet-api.jar
+│
+├─logs
+│      app.log
+│
+└─src
+    └─main
+        ├─java
+        │  └─com
+        │      └─example
+        │          └─web
+        │              └─action
+        │                      HelloWorldAction.java
+        │                      ShowErrorSampleAction.java
+        │                      ShowMessageAction.java
+        │
+        ├─resources
+        │      ApplicationResources.properties
+        │      ApplicationResources_ja_JP.UTF8
+        │      log4j2.xml
+        │      struts.xml
+        │
+        └─webapp
+            │  index.jsp
+            │  N000Error.jsp
+            │  N000Message.jsp
+            │
+            ├─css
+            │      N000Common.css
+            │
+            └─WEB-INF
+                │  web.xml
+                │
+                └─jsp
+                    └─views
+                            helloWorld.jsp

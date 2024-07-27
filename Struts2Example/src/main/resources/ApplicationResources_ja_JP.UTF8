@@ -1,0 +1,18 @@
+error.username=ユーザー名を入力してください。
+error.password=パスワードを入力してください。
+error.username.invalid=ユーザー名またはパスワードが正しくありません。
+errors.required={0}は必須項目です。
+
+messages.header=<div class="message-header">
+messages.footer=</div>
+messages.prefix=<p class="message">
+messages.suffix=</p>
+
+errors.header=<div class="error-header">
+errors.footer=</div>
+errors.prefix=<p class="error">
+errors.suffix=</p>
+
+message.success=操作が成功しましたわん。
+message.error=エラーが発生しましたよん。
+title.err=エラーページ

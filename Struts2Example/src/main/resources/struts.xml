@@ -1,0 +1,22 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+        <action name="helloWorld" class="com.example.web.action.HelloWorldAction">
+            <result name="success">/WEB-INF/jsp/views/helloWorld.jsp</result>
+        </action>
+
+        <!-- ShowMessageAction の設定 -->
+        <action name="showMessage" class="com.example.web.action.ShowMessageAction">
+            <result name="success">/N000Message.jsp</result>
+        </action>
+
+        <!-- ShowErrorSampleAction の設定 -->
+        <action name="showErrorSample" class="com.example.web.action.ShowErrorSampleAction">
+            <result name="error">/N000Error.jsp</result>
+        </action>
+
+    </package>
+</struts>
