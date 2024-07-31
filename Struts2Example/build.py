@@ -7,6 +7,7 @@ import sys
 #pylib_dir = r"C:\kimura363\pylib"
 pylib_dir = "../pylib"
 sys.path.append(pylib_dir)
+import pytest
 
 from runner import Runner
 from deploy import deploy
@@ -61,6 +62,7 @@ if __name__ == "__main__":
         runner = Runner()
         war_file = build(runner, "Struts2Example")
         deploy(runner, war_file)
+        pytest.main(["-s", "test_Struts2Example.py"])
     except Exception as e:
         print(f"Error occurred: {e}")
         #runner.run(f"pause")
