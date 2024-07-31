@@ -12,6 +12,8 @@ from runner import Runner
 from deploy import deploy
 from native2ascii import native2ascii
 
+import pytest
+
 def build(runner, build):
     runner.clear(build)
     runner.create_directory(f"{build}/WEB-INF")
@@ -47,6 +49,7 @@ if __name__ == "__main__":
         runner = Runner()
         war_file = build(runner, "StrutsExample")
         deploy(runner, war_file)
+        pytest.main(["-s", "test_StrutsExample.py"])
     except Exception as e:
         print(f"Error occurred: {e}")
         #runner.run(f"pause")
