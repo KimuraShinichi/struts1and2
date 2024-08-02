@@ -5,11 +5,31 @@
 <form-validation>
     <formset>
         <form name="loginForm">
-            <field property="username" depends="required">
-                <arg position="0" key="label.username"/>
+            <field property="userId" depends="required,minlength,maxlength">
+                <arg position="0" key="login.name.userId"/>
+                <arg position="1" key="2" resource="false" />
+                <arg position="2" key="12" resource="false" />
+                <var>
+                    <var-name>minlength</var-name>
+                    <var-value>2</var-value>
+                </var>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>12</var-value>
+                </var>
             </field>
-            <field property="password" depends="required">
-                <arg position="0" key="label.password"/>
+            <field property="password" depends="minlength,maxlength">
+                <arg position="0" key="login.name.password"/>
+                <arg position="1" key="0" resource="false" />
+                <arg position="2" key="24" resource="false" />
+                <var>
+                    <var-name>minlength</var-name>
+                    <var-value>0</var-value>
+                </var>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>24</var-value>
+                </var>
             </field>
         </form>
     </formset>

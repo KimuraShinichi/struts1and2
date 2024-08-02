@@ -6,7 +6,7 @@
     <form-beans>
         <form-bean name="helloWorldForm" type="com.example.web.HelloWorldForm"/>
         <form-bean name="loginForm" type="org.apache.struts.validator.DynaValidatorForm">
-            <form-property name="username" type="java.lang.String"/>
+            <form-property name="userId" type="java.lang.String"/>
             <form-property name="password" type="java.lang.String"/>
         </form-bean>
     </form-beans>
@@ -14,6 +14,7 @@
     <global-forwards>
         <forward name="error" path="/N000Error.jsp" />
         <!-- その他のフォワード設定 -->
+        <forward name="login" path="/login.jsp"/>
     </global-forwards>
 
     <action-mappings>
@@ -24,8 +25,11 @@
                 validate="false">
             <forward name="success" path="/helloWorld.jsp"/>
         </action>
-        <action path="/login" type="com.example.web.LoginAction" name="loginForm"
-                scope="request" input="/login.jsp">
+        <action path="/login" type="com.example.web.LoginAction"
+                name="loginForm"
+                scope="request"
+                validate="true"
+                input="/login.jsp">
             <forward name="success" path="/welcome.jsp"/>
             <forward name="failure" path="/login.jsp"/>
         </action>
