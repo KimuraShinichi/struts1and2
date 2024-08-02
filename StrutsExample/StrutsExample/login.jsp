@@ -1,32 +1,33 @@
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="/WEB-INF/tld/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html" %>
+<%@ taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page pageEncoding="UTF-8" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
 
 <html:html>
 <head>
-    <title>Login Page</title>
+    <title><bean:message key="login.title"/></title>
 </head>
 <body>
     <html:form action="/login" method="post">
+        <%-- GETメソッドで初期表示の場合は入力が空値でもエラー表示しない。 --%>
+        <% if ("POST".equals(request.getMethod())) { %><html:errors/><% } %>
         <table>
             <tr>
-                <td><html:errors property="username"/></td>
+                <td><bean:message key="login.label.userId"/></td>
+                <td><html:text property="userId"/></td>
             </tr>
             <tr>
-                <td>Username:</td>
-                <td><html:text property="username"/></td>
-            </tr>
-            <tr>
-                <td><html:errors property="password"/></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
+                <td><bean:message key="login.label.password"/></td>
                 <td><html:password property="password"/></td>
             </tr>
             <tr>
-                <td colspan="2"><html:submit value="Login"/></td>
+                <td colspan="2">
+                    <html:submit property="submitButton">
+                        <bean:message key='login.button.submit'/>
+                    </html:submit>
+                </td>
             </tr>
         </table>
     </html:form>
