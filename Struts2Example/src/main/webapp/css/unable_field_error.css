@@ -1,0 +1,4 @@
+/* Struts2 標準のフィールド単位のエラーメッセージ出力を抑止する。 */
+tr[errorFor] {
+    display: none;
+}

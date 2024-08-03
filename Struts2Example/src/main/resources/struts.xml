@@ -18,5 +18,9 @@
             <result name="error">/N000Error.jsp</result>
         </action>
 
+        <action name="login" class="com.example.web.action.LoginAction">
+            <result name="success">/welcome.jsp</result>
+            <result name="input">/login.jsp</result>
+        </action>
     </package>
 </struts>

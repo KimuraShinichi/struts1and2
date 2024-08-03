@@ -1,0 +1,27 @@
+errors.required={0}は必須です。
+errors.minlength={0}は{1}文字以上である必要があります。
+errors.maxlength={0}は{2}文字以下である必要があります。
+errors.email={0}は電子メールアドレスである必要があります。
+
+messages.header=<div class="message-header">
+messages.footer=</div>
+messages.prefix=<p class="message">
+messages.suffix=</p>
+
+errors.header=<div class="error-header">
+errors.footer=</div>
+errors.prefix=<p class="error">
+errors.suffix=</p>
+
+message.success=操作が成功しました。
+message.error=エラーが発生しました。
+title.err=エラーページ
+
+login.error=ユーザIDまたはパスワードが一致しません。
+
+login.title=ログインページ
+login.name.userId=ユーザID
+login.label.userId=ユーザID
+login.name.password=パスワード
+login.label.password=パスワード
+login.button.submit=ログイン
