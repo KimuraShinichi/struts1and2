@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <html:submit property="submitButton">
+                    <html:submit>
                         <bean:message key='login.button.submit'/>
                     </html:submit>
                 </td>
