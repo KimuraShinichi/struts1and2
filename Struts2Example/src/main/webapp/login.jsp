@@ -8,11 +8,20 @@
     <title><s:text name="login.title"/></title>
     <%-- GETメソッドで初期表示の場合は入力が空値でもエラー表示しない。 --%>
     <% if ("GET".equals(request.getMethod())) { %>
-        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/unable_field_error.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/unable_error_header.css">
     <% } %>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/unable_field_error.css">
+    <script src="<%=request.getContextPath()%>/js/collect_errors.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            collect_errors();
+        });
+    </script>
 </head>
 <body>
     <s:form action="login" method="post">
+        <div class="error-header"></div>
+
         <table>
             <tr>
                 <td></td>

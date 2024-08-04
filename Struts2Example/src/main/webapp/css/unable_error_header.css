@@ -1,0 +1,4 @@
+/* GET による初期表示向けに、Strutsi1 相当のエラーメッセージの集約出力を抑止する。 */
+div.error-header {
+    display: none;
+}
