@@ -48,7 +48,7 @@ def build(runner, build):
         if path.name.endswith(".java"):
             # java ファイルの文字コードが UTF-8 で保存されていることを想定しています。
             runner.run(f"javac -encoding UTF-8 -d {build}/WEB-INF/classes -cp \"{build}/WEB-INF/lib/*\" {path}")
-    runner.copy_recursive_preserve("src/main/resources/ApplicationResources.properties", f"{build}/WEB-INF/classes/com/example/web")
+    runner.copy_recursive_preserve("src/main/resources/ApplicationResources.properties", f"{build}/WEB-INF/classes")
     native2ascii(Path(f"src/main/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
     native2ascii(Path(f"src/main/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/ApplicationResources_ja.properties"), opt="-encoding UTF8")
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         runner = Runner()
         war_file = build(runner, "Struts2Example")
         deploy(runner, war_file)
-        pytest.main(["-s", "test_Struts2Example.py"])
+        pytest.main(["-s", "test/test_Struts2Example.py"])
     except Exception as e:
         print(f"Error occurred: {e}")
         #runner.run(f"pause")
