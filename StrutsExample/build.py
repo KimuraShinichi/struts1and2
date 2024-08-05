@@ -2,17 +2,15 @@
 
 from pathlib import Path
 import sys
+import platform
+import pytest
 
-# 'pylib' フォルダへの絶対パスを指定
-#pylib_dir = r"C:\kimura363\pylib"
-pylib_dir = "../pylib"
-sys.path.append(pylib_dir)
+# 'pylib' フォルダへの相対パスを指定
+sys.path.append("../pylib")
 
 from runner import Runner
 from deploy import deploy
 from native2ascii import native2ascii
-
-import pytest
 
 def build(runner, build):
     runner.clear(build)
@@ -41,8 +39,10 @@ def build(runner, build):
     native2ascii(Path(f"src/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
     runner.copy_recursive_preserve("src/resources/log4j.properties", f"{build}/WEB-INF/classes")
 
-    #runner.run(f"tree /F {build}")
-    runner.run(f"tree {build}")
+    if platform.system() == "Windows":
+        runner.run(f"tree /F {build}")
+    else:
+        runner.run(f"tree {build}")
     runner.run(f"jar -cvf {build}.war -C {build} .")
     return f"{build}.war"
 
@@ -54,4 +54,5 @@ if __name__ == "__main__":
         pytest.main(["-s", "test/test_StrutsExample.py"])
     except Exception as e:
         print(f"Error occurred: {e}")
-        #runner.run(f"pause")
+    if platform.system() == "Windows":
+        runner.run(f"pause")

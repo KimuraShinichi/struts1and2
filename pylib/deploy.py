@@ -2,6 +2,7 @@
 
 from runner import Runner
 import os
+import platform
 import psutil
 import socket
 import subprocess
@@ -49,8 +50,10 @@ def stop_tomcat(tomcat_path):
     """
     try:
         print("Stopping Tomcat...")
-        #stop_script = os.path.join(tomcat_path, "bin", "catalina.bat")
-        stop_script = os.path.join(tomcat_path, "bin", "catalina.sh")
+        if platform.system() == "Windows":
+            stop_script = os.path.join(tomcat_path, "bin", "catalina.bat")
+        else:
+            top_script = os.path.join(tomcat_path, "bin", "catalina.sh")
         subprocess.run([stop_script, "stop"], check=True)
         while is_tomcat_running_by_port():
             time.sleep(1)  # ポートが閉じるのを待つ
@@ -67,8 +70,10 @@ def start_tomcat(tomcat_path):
     """
     try:
         print("Starting Tomcat...")
-        #startup_script = os.path.join(tomcat_path, "bin", "catalina.bat")
-        startup_script = os.path.join(tomcat_path, "bin", "catalina.sh")
+        if platform.system() == "Windows":
+            startup_script = os.path.join(tomcat_path, "bin", "catalina.bat")
+        else:
+            startup_script = os.path.join(tomcat_path, "bin", "catalina.sh")
         subprocess.run([startup_script, "start"], check=True)
         print("Tomcat started successfully.")
     except subprocess.CalledProcessError as e:
