@@ -53,7 +53,7 @@ def stop_tomcat(tomcat_path):
         if platform.system() == "Windows":
             stop_script = os.path.join(tomcat_path, "bin", "catalina.bat")
         else:
-            top_script = os.path.join(tomcat_path, "bin", "catalina.sh")
+            stop_script = os.path.join(tomcat_path, "bin", "catalina.sh")
         subprocess.run([stop_script, "stop"], check=True)
         while is_tomcat_running_by_port():
             time.sleep(1)  # ポートが閉じるのを待つ
