@@ -2,6 +2,8 @@ errors.required={0}は入力してください。
 errors.minlength={0}は少なくとも{1}以上で入力してください。
 errors.maxlength={0}は多くとも{2}以下で入力してください。
 errors.email={0}は電子メールアドレスを入力してください。
+errors.integer={0}は整数で入力してください。
+errors.intRange={0}は最小で{1}かつ最大で{2}の範囲の整数で入力してください。
 
 messages.header=<div class="message-header">
 messages.footer=</div>
@@ -25,3 +27,15 @@ login.label.userId=ユーザID:
 login.name.password=パスワード
 login.label.password=パスワード:
 login.button.submit=ログイン
+
+profile.title=プロファイルページ（フォームに指定できる各種入力項目の表示）
+profile.name.firstName=名
+profile.name.lastName=氏
+profile.name.email=電子メールアドレス
+profile.name.age=年齢
+profile.name.age.min=最小値（年齢）
+profile.name.age.max=最大値（年齢）
+profile.name.gender=性別
+profile.name.bio=自己紹介
+profile.name.agree=同意する
+profile.button.submit=送信

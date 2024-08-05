@@ -2,6 +2,8 @@ errors.required={0}は必須です。
 errors.minlength={0}は{1}文字以上である必要があります。
 errors.maxlength={0}は{2}文字以下である必要があります。
 errors.email={0}は電子メールアドレスである必要があります。
+errors.integer={0}は整数である必要があります。
+errors.intRange={0}は{1}以上かつ{2}以下である必要があります。
 
 messages.header=<div class="message-header">
 messages.footer=</div>
@@ -25,3 +27,15 @@ login.label.userId=ユーザID:
 login.name.password=パスワード
 login.label.password=パスワード:
 login.button.submit=ログイン
+
+profile.title=プロファイルページ
+profile.name.firstName=名
+profile.name.lastName=氏
+profile.name.email=電子メールアドレス
+profile.name.age=年齢
+profile.name.age.min=最小値（年齢）
+profile.name.age.max=最大値（年齢）
+profile.name.gender=性別
+profile.name.bio=自己紹介
+profile.name.agree=同意する
+profile.button.submit=送る
