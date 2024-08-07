@@ -1,0 +1,15 @@
+.DS_Store
+logs/
+__pycache__/
+.lib-extracted/
+.pytest_cache/
+StrutsExample/logs/
+StrutsExample/StrutsExample/
+Struts2Example/logs/
+Struts2Example/Struts2Example/
+tomcat/apache-tomcat-8.5.100/logs/
+tomcat/apache-tomcat-8.5.100/work/
+tomcat/apache-tomcat-8.5.100/webapps/StrutsExample/
+tomcat/apache-tomcat-8.5.100/webapps/Struts2Example/
+tomcat/apache-tomcat-8.5.100/webapps/StrutsExample.war
+tomcat/apache-tomcat-8.5.100/webapps/Struts2Example.war
