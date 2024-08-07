@@ -10,7 +10,6 @@ sys.path.append("../pylib")
 
 from runner import Runner
 from deploy import deploy
-from native2ascii import native2ascii
 
 def build(runner, build):
     runner.clear(build)
@@ -35,9 +34,9 @@ def build(runner, build):
             # java ファイルの文字コードが UTF-8 で保存されていることを想定しています。
             runner.run(f"javac -encoding UTF-8 -d {build}/WEB-INF/classes -cp \"{build}/WEB-INF/lib/*\" {path}")
     runner.copy_recursive_preserve("src/resources/ApplicationResources.properties", f"{build}/WEB-INF/classes/com/example/web")
-    native2ascii(Path(f"src/resources/ApplicationResources_ja.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja.properties"), opt="-encoding UTF8")
-    native2ascii(Path(f"src/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
-    runner.copy_recursive_preserve("src/resources/log4j.properties", f"{build}/WEB-INF/classes")
+    runner.native2ascii(Path(f"src/resources/ApplicationResources_ja.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja.properties"), opt="-encoding UTF8")
+    runner.native2ascii(Path(f"src/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/com/example/web/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
+    runner.copy_file_with_replacing_env("CATALINA_HOME", "src/resources/log4j.properties", f"{build}/WEB-INF/classes/log4j.properties", encoding='utf-8')
 
     if platform.system() == "Windows":
         runner.run(f"tree /F {build}")

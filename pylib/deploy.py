@@ -1,6 +1,7 @@
 # deploy.py
 
 from runner import Runner
+from contextlib import contextmanager
 import os
 import platform
 import psutil
@@ -62,6 +63,30 @@ def stop_tomcat(tomcat_path):
         print(f"Failed to stop Tomcat using script {stop_script}: {e}")
         raise
 
+@contextmanager
+def on_dir(tmp_current_dir, to_do):
+    # 現在の作業ディレクトリを保存
+    current_dir = os.getcwd()
+
+    try:
+        # 一時的に指定されたディレクトリに移動
+        os.chdir(tmp_current_dir)
+        print(f"---- on_dir: {tmp_current_dir}")
+        # to_do を実行
+        yield
+    finally:
+        # to_do の実行後、元のディレクトリに戻る
+        os.chdir(current_dir)
+
+def get_abspath_from_script_dir(relative_path):
+    """
+    このスクリプトファイルの親ディレクトリからの相対パスを絶対パスで返します。
+    """
+    script_path = os.path.realpath(__file__)
+    parent_dir = os.path.dirname(script_path)
+    absolute_path = os.path.abspath(os.path.join(parent_dir, relative_path))
+    return absolute_path
+
 def start_tomcat(tomcat_path):
     """
     Tomcat を起動します。
@@ -74,7 +99,8 @@ def start_tomcat(tomcat_path):
             startup_script = os.path.join(tomcat_path, "bin", "catalina.bat")
         else:
             startup_script = os.path.join(tomcat_path, "bin", "catalina.sh")
-        subprocess.run([startup_script, "start"], check=True)
+        with on_dir(get_abspath_from_script_dir('..'), subprocess.run([startup_script, "start"], check=True)):
+            pass
         print("Tomcat started successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Failed to start Tomcat using script {startup_script}: {e}")
@@ -83,12 +109,15 @@ def start_tomcat(tomcat_path):
 def deploy(runner, war_file):
     runner = Runner()
     try:
+        # Tomcat ディレクトリを CATALINA_HOME に指定
+        tomcat_home = get_abspath_from_script_dir('../tomcat/apache-tomcat-8.5.100')
+        os.environ['CATALINA_HOME'] = tomcat_home
+
         # WAR ファイルが存在するか確認
         if not os.path.exists(war_file):
             raise FileNotFoundError(f"{war_file} not found.")
 
-        # Tomcat デプロイメントディレクトリを指定 (ここに適切なパスを設定)
-        #tomcat_home_directory = r"C:\kimura363\tomcat\apache-tomcat-8.5.100"
+        # Tomcat デプロイメントディレクトリを指定
         tomcat_home_directory = f"{os.environ.get('CATALINA_HOME')}"
         tomcat_deploy_directory = os.path.join(tomcat_home_directory, "webapps")
 

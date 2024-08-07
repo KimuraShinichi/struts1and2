@@ -1,4 +1,3 @@
-#Part-1
 import os
 import shutil
 import subprocess
@@ -85,7 +84,6 @@ class Runner():
         else:
             raise ValueError(f"Source {src} is neither a file nor a directory.")
 
-# Part-2
     def __concatenate_args(self, *args):
         """
         可変引数 args を空白文字で区切って連結した文字列を返します.
@@ -123,6 +121,29 @@ class Runner():
                 raise FileNotFoundError(f"Source path {src} does not exist.")
             self.__copy_preserve_timestamps(src_path, dst)
 
+    def native2ascii(self, src, dest, opt="-encoding UTF8"):
+        """
+        native2ascii コマンドを実行する関数。
+        
+        :param src: 入力ファイルのパス (Path オブジェクト)
+        :param dest: 出力ファイルのパス (Path オブジェクト)
+        :param opt: native2ascii コマンドのオプション
+        """
+        # オプションを分割してリストに変換
+        opt_list = opt.split()
+    
+        # コマンドをリストとして作成
+        command = ["native2ascii", *opt_list, str(src), str(dest)]
+        self.__prompt(' '.join(command))
+    
+        try:
+            # コマンドを実行
+            result = subprocess.run(command, check=True, text=True)
+        except subprocess.CalledProcessError as e:
+            print(f"native2ascii: An error occurred: {e}")
+        except FileNotFoundError:
+            print("native2ascii: Command not found. Please ensure native2ascii has been installed and in your PATH.")
+
     def list_relative_paths(self, directory):
         """
         指定されたディレクトリ以下の全てのファイルを列挙し、指定されたディレクトリパスから始まる相対パスを返します。
@@ -138,6 +159,21 @@ class Runner():
                 relative_paths.append(path.relative_to("."))
 
         return relative_paths
+
+    def __replaced_content_with_env(self, env_name, infile_path, encoding = 'utf-8'):
+        with open(infile_path, 'r', encoding=encoding) as file:
+            content = file.read().replace('${' + env_name + '}', os.getenv(env_name, f"${{{env_name}}}"))
+        return content
+
+    def __write_content(self, content, outfile_path, encoding = 'utf-8'):
+        with open(outfile_path, 'w', encoding=encoding) as outfile:
+            outfile.write(content)
+
+    def copy_file_with_replacing_env(self, env_name, infile_path, outfile_path, encoding='utf-8'):
+        command = f"cat {infile_path} | sed 's@${{{env_name}}}@'${{{env_name}}}'@' > {outfile_path}"
+        self.__prompt(command)
+        content = self.__replaced_content_with_env(env_name, infile_path, encoding)
+        self.__write_content(content, outfile_path, encoding)
 
 # サンプル使用法
 if __name__ == "__main__":

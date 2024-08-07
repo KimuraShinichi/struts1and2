@@ -10,7 +10,6 @@ sys.path.append("../pylib")
 
 from runner import Runner
 from deploy import deploy
-from native2ascii import native2ascii
 
 def build(runner, build):
     runner.clear(f"{build}")
@@ -21,7 +20,7 @@ def build(runner, build):
     runner.create_directory(f"{build}/js")
     runner.copy_recursive_preserve("src/main/webapp/WEB-INF/web.xml", f"{build}/WEB-INF")
     runner.copy_recursive_preserve("src/main/resources/struts.xml", f"{build}/WEB-INF/classes")
-    runner.copy_recursive_preserve("src/main/resources/log4j2.xml", f"{build}/WEB-INF/classes")
+    runner.copy_file_with_replacing_env("CATALINA_HOME", "src/main/resources/log4j2.xml", f"{build}/WEB-INF/classes/log4j2.xml", encoding='utf-8')
     runner.copy_recursive_preserve("src/main/webapp/WEB-INF/jsp/", f"{build}/WEB-INF")
     runner.copy_recursive_preserve("src/main/webapp/css/*", f"{build}/css")
     runner.copy_recursive_preserve("src/main/webapp/js/*", f"{build}/js")
@@ -50,8 +49,8 @@ def build(runner, build):
             # java ファイルの文字コードが UTF-8 で保存されていることを想定しています。
             runner.run(f"javac -encoding UTF-8 -d {build}/WEB-INF/classes -cp \"{build}/WEB-INF/lib/*\" {path}")
     runner.copy_recursive_preserve("src/main/resources/ApplicationResources.properties", f"{build}/WEB-INF/classes")
-    native2ascii(Path(f"src/main/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
-    native2ascii(Path(f"src/main/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/ApplicationResources_ja.properties"), opt="-encoding UTF8")
+    runner.native2ascii(Path(f"src/main/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/ApplicationResources_ja_JP.properties"), opt="-encoding UTF8")
+    runner.native2ascii(Path(f"src/main/resources/ApplicationResources_ja_JP.UTF8"), Path(f"{build}/WEB-INF/classes/ApplicationResources_ja.properties"), opt="-encoding UTF8")
 
     if platform.system() == "Windows":
         runner.run(f"tree /F {build}")

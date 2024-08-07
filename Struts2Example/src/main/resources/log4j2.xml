@@ -4,7 +4,7 @@
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
     </Console>
-    <File name="File" fileName="logs/Struts2Example.log"><!-- fileName="C:/kimura363/Struts2Example/logs/app.log" -->
+    <File name="File" fileName="${CATALINA_HOME}/../../Struts2Example/logs/Struts2Example.log">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
     </File>
   </Appenders>
